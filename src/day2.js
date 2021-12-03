@@ -1,8 +1,4 @@
-function splitInput(input) {
-  return input
-    .split('\n')
-    .filter((entry) => entry);
-}
+const { splitInput } = require('./utils');
 
 function parseInstructions(rawInstructions) {
   return rawInstructions.map((rawInstruction) => {
