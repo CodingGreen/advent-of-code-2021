@@ -1,4 +1,4 @@
-const { partOne, partTwo } = require("./day1");
+const { partOne, partTwo } = require('./day1');
 
 const testData = `199
 200
@@ -11,10 +11,10 @@ const testData = `199
 260
 263`;
 
-test("Part One", () => {
+test('Part One', () => {
   expect(partOne(testData)).toBe(7);
 });
 
-test("Part Two", () => {
-  expect(partTwo(testData)).toBe();
+test('Part Two', () => {
+  expect(partTwo(testData)).toBe(5);
 });
