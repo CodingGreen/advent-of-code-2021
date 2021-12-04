@@ -1,4 +1,4 @@
-const { splitInput } = require('./utils');
+const { splitInput, sum } = require('./utils');
 
 function compareReduce(numberToCompare) {
   const indexLimit = numberToCompare - 1;
@@ -17,10 +17,6 @@ function compareReduce(numberToCompare) {
 
 function splitNumericalInput(input) {
   return splitInput(input).map(Number);
-}
-
-function sum(array) {
-  return array.reduce((total, value) => total + value, 0);
 }
 
 function countIncreases(numericalArray) {
