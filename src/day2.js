@@ -1,17 +1,10 @@
-const { splitInput } = require('./utils');
+const { splitInput, pipe } = require('./utils');
 
 function parseInstructions(rawInstructions) {
   return rawInstructions.map((rawInstruction) => {
     const [command, distance] = rawInstruction.split(' ');
     return { command, distance: Number(distance) };
   });
-}
-
-function pipe(...functions) {
-  return (startingValue) => functions.reduce(
-    (previousResult, nextFunction) => nextFunction(previousResult),
-    startingValue,
-  );
 }
 
 function calculatePosition(instructions, commands) {

@@ -4,6 +4,14 @@ function splitInput(input) {
     .filter((entry) => entry);
 }
 
+function pipe(...functions) {
+  return (startingValue) => functions.reduce(
+    (previousResult, nextFunction) => nextFunction(previousResult),
+    startingValue,
+  );
+}
+
 module.exports = {
   splitInput,
+  pipe,
 };
