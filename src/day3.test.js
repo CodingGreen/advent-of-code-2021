@@ -18,5 +18,5 @@ test('Part One', () => {
 });
 
 test('Part Two', () => {
-  expect(partTwo(testData)).toBe();
+  expect(partTwo(testData)).toBe(230);
 });
