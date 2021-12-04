@@ -8,6 +8,25 @@ function chunkArray(chunkSize) {
   };
 }
 
+function parseInput(input) {
+  const firstNewlineIndex = input.indexOf('\n');
+
+  const numberDraws = input.slice(0, firstNewlineIndex).split(',').map(Number);
+
+  const boards = input
+    .slice(firstNewlineIndex + 2, -1)
+    .split('\n\n')
+    .map((board) => board
+      .split('\n')
+      .map(chunkArray(3))
+      .map((row) => row.map((stringValue) => ({
+        marked: false,
+        value: Number(stringValue),
+      }))));
+
+  return { numberDraws, boards };
+}
+
 function markNumber(number, board) {
   return board.map((row) => row.map((boardNumber) => {
     const { value } = boardNumber;
@@ -37,26 +56,24 @@ function findWinningBoard(boards, numberDraws) {
   return findWinningBoard(markedBoards, remainingDraws);
 }
 
+function findLastWinningBoard(boards, numberDraws) {
+  const [drawnNumber, ...remainingDraws] = numberDraws;
+  const markedBoards = boards.map((board) => markNumber(drawnNumber, board));
+  const losingBoards = markedBoards.filter((board) => !isWin(board));
+  if (losingBoards.length === 0) {
+    return { winningBoard: markedBoards[0], winningNumber: drawnNumber };
+  }
+  if (remainingDraws.length === 0) return null;
+  return findLastWinningBoard(losingBoards, remainingDraws);
+}
+
 function scoreWinningBoard(board, winningNumber) {
   const uncheckedValues = board.flat().map(({ value, marked }) => (marked ? 0 : value));
   return sum(uncheckedValues) * winningNumber;
 }
 
 function partOne(input) {
-  const firstNewlineIndex = input.indexOf('\n');
-
-  const numberDraws = input.slice(0, firstNewlineIndex).split(',').map(Number);
-
-  const boards = input
-    .slice(firstNewlineIndex + 2, -1)
-    .split('\n\n')
-    .map((board) => board
-      .split('\n')
-      .map(chunkArray(3))
-      .map((row) => row.map((stringValue) => ({
-        marked: false,
-        value: Number(stringValue),
-      }))));
+  const { numberDraws, boards } = parseInput(input);
 
   const { winningBoard, winningNumber } = findWinningBoard(boards, numberDraws);
 
@@ -64,7 +81,11 @@ function partOne(input) {
 }
 
 function partTwo(input) {
+  const { numberDraws, boards } = parseInput(input);
 
+  const { winningBoard, winningNumber } = findLastWinningBoard(boards, numberDraws);
+
+  return scoreWinningBoard(winningBoard, winningNumber);
 }
 
 module.exports = { partOne, partTwo };
