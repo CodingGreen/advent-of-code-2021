@@ -53,6 +53,25 @@ function drawHorizontalOrVerticalLine(grid, line) {
   });
 }
 
+function drawDiagonalLine(grid, line) {
+  const inYRange = isBetween(line[0].y, line[1].y);
+  const slope = (line[1].y - line[0].y) / (line[1].x - line[0].x);
+  const getXCoordinate = (y) => ((y - line[0].y) / slope) + line[0].x;
+
+  return grid.map((row, rowIndex) => {
+    if (inYRange(rowIndex)) {
+      const xCoordinate = getXCoordinate(rowIndex);
+      return row.map((cell, columnIndex) => {
+        if (columnIndex === xCoordinate) {
+          return cell ? cell + 1 : 1;
+        }
+        return cell;
+      });
+    }
+    return row;
+  });
+}
+
 function countOverlaps(grid) {
   return grid.flat().reduce((count, cell) => {
     if (cell > 1) return count + 1;
@@ -70,6 +89,20 @@ function findLargestCoordinate(lines) {
   }, 0);
 }
 
+function printGrid(grid) {
+  const printData = grid.map((row) => row.map((cell) => (cell || '.')).join(' ')).join('\n');
+  console.log(printData);
+}
+
+function splitArray(callback) {
+  return (array) => array.reduce(([falsyValues, truthyValues], currentValue) => {
+    if (callback(currentValue)) {
+      return [falsyValues, [...truthyValues, currentValue]];
+    }
+    return [[...falsyValues, currentValue], truthyValues];
+  }, [[], []]);
+}
+
 function partOne(input) {
   const horizontalAndVerticalLines = parseLineCoordinates(input)
     .filter(isHorizontalOrVertical);
@@ -84,7 +117,20 @@ function partOne(input) {
 }
 
 function partTwo(input) {
+  const lines = parseLineCoordinates(input);
 
+  const largestCoordinate = findLargestCoordinate(lines);
+  const initialGrid = generateGrid(largestCoordinate + 1);
+
+  const [diagonalLines, horizontalAndVerticalLines] = splitArray(isHorizontalOrVertical)(lines);
+
+  const diagonalLineGrid = diagonalLines
+    .reduce((grid, lineToDraw) => drawDiagonalLine(grid, lineToDraw), initialGrid);
+
+  const finalGrid = horizontalAndVerticalLines
+    .reduce((grid, lineToDraw) => drawHorizontalOrVerticalLine(grid, lineToDraw), diagonalLineGrid);
+
+  return countOverlaps(finalGrid);
 }
 
 module.exports = { partOne, partTwo };
