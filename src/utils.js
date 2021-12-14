@@ -19,9 +19,14 @@ function sum(array) {
   return array.reduce((total, value) => total + value, 0);
 }
 
+function identityFunction(input) {
+  return input;
+}
+
 module.exports = {
   splitInput,
   pipe,
   range,
   sum,
+  identityFunction,
 };

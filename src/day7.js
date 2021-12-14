@@ -1,4 +1,4 @@
-const { sum } = require('./utils');
+const { sum, identityFunction } = require('./utils');
 
 function splitInput(input) {
   return input.split(',').map(Number);
@@ -27,10 +27,6 @@ function fuelCost(distance) {
 function calculateFuelRequirement(positionList, comparisonPosition, calculateFuelCost) {
   return sum(positionList
     .map((currentPosition) => calculateFuelCost(difference(currentPosition, comparisonPosition))));
-}
-
-function identityFunction(input) {
-  return input;
 }
 
 function partOne(input) {
