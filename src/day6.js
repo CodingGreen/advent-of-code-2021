@@ -1,6 +1,5 @@
 const { range, sum } = require('./utils');
 
-const daysToSimulate = 80;
 const lanternFishStartingReproductionRate = 9;
 const lanternFishStandardReproductionRate = 7;
 
@@ -39,14 +38,18 @@ function runSimulation(simulationFunction, steps, startingState) {
   return runRecursive(startingState, 0);
 }
 
-function partOne(input) {
+function simulateLanternFish(input, daysToSimulate) {
   const startingState = countLanternFish(input);
   const finalState = runSimulation(simulateDay, daysToSimulate, startingState);
   return sum(finalState);
 }
 
-function partTwo(input) {
+function partOne(input) {
+  return simulateLanternFish(input, 80);
+}
 
+function partTwo(input) {
+  return simulateLanternFish(input, 256);
 }
 
 module.exports = { partOne, partTwo };
