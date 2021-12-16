@@ -16,6 +16,6 @@ test('Part One', () => {
   expect(partOne(testData)).toBe(26);
 });
 
-test('Part Two', () => {
-  expect(partTwo(testData)).toBe();
+test.only('Part Two', () => {
+  expect(partTwo(testData)).toBe(61229);
 });
