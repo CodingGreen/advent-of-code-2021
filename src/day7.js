@@ -1,11 +1,7 @@
-const { sum, identityFunction } = require('./utils');
+const { sum, identityFunction, sort } = require('./utils');
 
 function splitInput(input) {
   return input.split(',').map(Number);
-}
-
-function sort(array) {
-  return [...array].sort((a, b) => a - b);
 }
 
 function median(sortedArray) {

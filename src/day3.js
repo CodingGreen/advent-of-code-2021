@@ -1,4 +1,4 @@
-const { splitInput, pipe } = require('./utils');
+const { splitInput, pipe, functionalMap } = require('./utils');
 
 function convertBinaryArrayToMatrix(binaryArray) {
   return binaryArray.map((binaryNumber) => Array.from(binaryNumber));
@@ -13,10 +13,6 @@ function countOccurrences(array) {
     ...accumulator,
     [element]: accumulator[element] ? accumulator[element] + 1 : 1,
   }), {});
-}
-
-function functionalMap(mappingFunction) {
-  return (array) => array.map(mappingFunction);
 }
 
 function convertBinaryArrayToDecimal(binaryArray) {
