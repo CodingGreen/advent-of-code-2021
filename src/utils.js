@@ -43,6 +43,10 @@ function functionalSlice(...args) {
   return (array) => array.slice(...args);
 }
 
+function median(sortedArray) {
+  return sortedArray[Math.floor(sortedArray.length / 2)];
+}
+
 module.exports = {
   splitInput,
   pipe,
@@ -54,4 +58,5 @@ module.exports = {
   sort,
   multiply,
   functionalSlice,
+  median,
 };
