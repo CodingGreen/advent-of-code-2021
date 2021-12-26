@@ -1,4 +1,5 @@
 const { range, sum } = require('./utils');
+const { runSimulation } = require('./helpers');
 
 const lanternFishStartingReproductionRate = 9;
 const lanternFishStandardReproductionRate = 7;
@@ -27,15 +28,6 @@ function simulateDay(state) {
     ...state.slice(lanternFishStandardReproductionRate + 1, lanternFishStartingReproductionRate),
     state[0],
   ];
-}
-
-function runSimulation(simulationFunction, steps, startingState) {
-  const runRecursive = (state, step) => {
-    if (step >= steps) return state;
-    return runRecursive(simulationFunction(state), step + 1);
-  };
-
-  return runRecursive(startingState, 0);
 }
 
 function simulateLanternFish(input, daysToSimulate) {
