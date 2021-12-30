@@ -1,7 +1,6 @@
 const { partOne, partTwo } = require('./day12');
 
-test('Part One - Example 1', () => {
-  const testData = `start-A
+const exampleOneTestData = `start-A
 start-b
 A-c
 A-b
@@ -10,11 +9,7 @@ A-end
 b-end
 `;
 
-  expect(partOne(testData)).toBe(10);
-});
-
-test('Part One - Example 2', () => {
-  const testData = `dc-end
+const exampleTwoTestData = `dc-end
 HN-start
 start-kj
 dc-start
@@ -26,11 +21,7 @@ kj-HN
 kj-dc
 `;
 
-  expect(partOne(testData)).toBe(19);
-});
-
-test('Part One - Example 3', () => {
-  const testData = `fs-end
+const exampleThreeTestData = `fs-end
 he-DX
 fs-he
 start-DX
@@ -50,9 +41,30 @@ pj-fs
 start-RW
 `;
 
-  expect(partOne(testData)).toBe(226);
+describe('Part One', () => {
+  test('Example 1', () => {
+    expect(partOne(exampleOneTestData)).toBe(10);
+  });
+
+  test('Example 2', () => {
+    expect(partOne(exampleTwoTestData)).toBe(19);
+  });
+
+  test('Example 3', () => {
+    expect(partOne(exampleThreeTestData)).toBe(226);
+  });
 });
 
-test('Part Two', () => {
-  expect(partTwo()).toBe();
+describe('Part Two', () => {
+  test('Example 1', () => {
+    expect(partTwo(exampleOneTestData)).toBe(36);
+  });
+
+  test('Example 2', () => {
+    expect(partTwo(exampleTwoTestData)).toBe(103);
+  });
+
+  test('Example 3', () => {
+    expect(partTwo(exampleThreeTestData)).toBe(3509);
+  });
 });
